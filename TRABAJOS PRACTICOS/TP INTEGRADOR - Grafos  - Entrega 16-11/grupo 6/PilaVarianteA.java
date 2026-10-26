@@ -1,20 +1,14 @@
 public class PilaVarianteA implements Pila {
-    private int[] datos;
+    private final int[] datos;
     private int tope;
     private int capacidad;
-    
-    private static final int CAPACIDAD_DEFAULT = 1000;
-    
-    public PilaVarianteA() {
-        this(CAPACIDAD_DEFAULT);
-    }
-    
+
     public PilaVarianteA(int capacidad) {
         this.capacidad = capacidad;
         this.datos = new int[capacidad];
         this.tope = 0;
     }
-    
+
     @Override
     public void apilar(int x) {
         if (tope == capacidad) {
@@ -23,7 +17,7 @@ public class PilaVarianteA implements Pila {
         datos[tope] = x;
         tope++;
     }
-    
+
     @Override
     public int desapilar() {
         if (esVacia()) {
@@ -32,7 +26,7 @@ public class PilaVarianteA implements Pila {
         tope--;
         return datos[tope];
     }
-    
+
     @Override
     public int tope() {
         if (esVacia()) {
@@ -40,7 +34,7 @@ public class PilaVarianteA implements Pila {
         }
         return datos[tope - 1];
     }
-    
+
     @Override
     public boolean esVacia() {
         return tope == 0;
