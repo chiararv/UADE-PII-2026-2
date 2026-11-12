@@ -99,3 +99,19 @@ Orden de visita = [ A B D F E C ]
 **Complejidad temporal:** O(V²) en el peor caso. Cada vuelta del `while` apila un vértice nuevo o desapila uno que ya terminó, así que hay como máximo 2V - 1 vueltas. En cada vuelta se consultan los vecinos del tope, con costo O(V), y se busca uno sin visitar. Aunque se vuelva a consultar un vértice al regresar de una rama, el total sigue siendo O(V²).
 
 **Espacio adicional:** O(V), por la pila, las marcas, la lista de resultado y el arreglo de vecinos de la vuelta actual. No hay llamadas recursivas.
+
+
+### 4 Análisis de complejidad
+```text
+4.1 Se eligió BFS porque recorre el grafo por niveles; sin embargo, como el objetivo es solo verificar si existe algún camino entre dos vértices, DFS y BFS son indistintos: ambos recorren el mismo conjunto de nodos alcanzables desde el origen y, si v2 pertenece a esa región, devuelve verdadero; si no, devuelve falso.
+```
+```text
+ 4.3 Se utiliza BFS porque el grafo es no pesado, es decir, todas las aristas tienen igual costo. BFS recorre los vértices en orden creciente de distancia desde el origen. Por lo tanto, cuando se descubre el destino por primera vez, ya se obtuvo la ruta con menor número de aristas. Si no llega a encontrarse, entonces no existe camino entre ambos vértices.
+```
+**estanConectados:** O(V + E) en teoría; con esta implementación de matriz de adyacencia, el costo práctica es O(V^2).
+
+**componentesConexas:** idem O(V + E) / O(V^2) con matriz.
+
+**caminoMasCorto:** O(V + E) / O(V^2) con matriz.
+
+

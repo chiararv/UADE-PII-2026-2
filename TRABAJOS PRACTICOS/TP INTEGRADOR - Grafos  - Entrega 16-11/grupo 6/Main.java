@@ -29,6 +29,14 @@ public class Main {
         System.out.println("=== 3.3 DFS iterativo desde A ===");
         Lista recorridoIterativo = RecorridosGrafo.dfsIterativo(grafo, "A");
         System.out.println("Orden de visita = " + recorridoIterativo);
+
+        System.out.println();
+        System.out.println("=== Parte 4 - Utilizacion ===");
+        System.out.println("estanConectados(A, F) = " + RecorridosGrafo.estanConectados(grafo, "A", "F"));
+        System.out.println("estanConectados(A, G) = " + RecorridosGrafo.estanConectados(grafo, "A", "G"));
+        System.out.println("componentesConexas = " + RecorridosGrafo.componentesConexas(grafo));
+        System.out.println("caminoMasCorto(A, F) = " + RecorridosGrafo.caminoMasCorto(grafo, "A", "F"));
+        System.out.println("caminoMasCorto(A, G) = " + RecorridosGrafo.caminoMasCorto(grafo, "A", "G"));
     }
 
     private static Grafo crearGrafoEjemplo() {

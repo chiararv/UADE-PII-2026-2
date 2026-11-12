@@ -81,4 +81,95 @@ public class RecorridosGrafo {
 
         return orden;
     }
+
+
+    public static boolean estanConectados(Grafo grafo, String v1, String v2) {
+        int origen = grafo.indiceDe(v1);
+        int destino = grafo.indiceDe(v2);
+        boolean[] visitados = new boolean[grafo.cantidadVertices()];
+        Cola pendientes = new ColaCircular(grafo.cantidadVertices());
+
+        visitados[origen] = true;
+        pendientes.encolar(origen);
+
+        while (!pendientes.esVacia()) {
+            int actual = pendientes.desencolar();
+            if (actual == destino) {
+                return true;
+            }
+
+            int[] vecinos = grafo.vecinosPorIndice(actual);
+            for (int i = 0; i < vecinos.length; i++) {
+                int vecino = vecinos[i];
+                if (!visitados[vecino]) {
+                    visitados[vecino] = true;
+                    pendientes.encolar(vecino);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static int componentesConexas(Grafo grafo) {
+        int cantidad = grafo.cantidadVertices();
+        boolean[] visitados = new boolean[cantidad];
+        int componentes = 0;
+
+        for (int i = 0; i < cantidad; i++) {
+            if (!visitados[i]) {
+                componentes++;
+                Cola pendientes = new ColaCircular(cantidad);
+                visitados[i] = true;
+                pendientes.encolar(i);
+
+                while (!pendientes.esVacia()) {
+                    int actual = pendientes.desencolar();
+                    int[] vecinos = grafo.vecinosPorIndice(actual);
+                    for (int j = 0; j < vecinos.length; j++) {
+                        int vecino = vecinos[j];
+                        if (!visitados[vecino]) {
+                            visitados[vecino] = true;
+                            pendientes.encolar(vecino);
+                        }
+                    }
+                }
+            }
+        }
+
+        return componentes;
+    }
+
+    public static int caminoMasCorto(Grafo grafo, String origen, String destino) {
+        int indiceOrigen = grafo.indiceDe(origen);
+        int indiceDestino = grafo.indiceDe(destino);
+        int cantidad = grafo.cantidadVertices();
+        boolean[] visitados = new boolean[cantidad];
+        int[] distancia = new int[cantidad];
+        Cola pendientes = new ColaCircular(cantidad);
+
+        visitados[indiceOrigen] = true;
+        distancia[indiceOrigen] = 0;
+        pendientes.encolar(indiceOrigen);
+
+        while (!pendientes.esVacia()) {
+            int actual = pendientes.desencolar();
+            if (actual == indiceDestino) {
+                return distancia[actual];
+            }
+
+            int[] vecinos = grafo.vecinosPorIndice(actual);
+            for (int i = 0; i < vecinos.length; i++) {
+                int vecino = vecinos[i];
+                if (!visitados[vecino]) {
+                    visitados[vecino] = true;
+                    distancia[vecino] = distancia[actual] + 1;
+                    pendientes.encolar(vecino);
+                }
+            }
+        }
+
+        return -1;
+    }
+
 }
